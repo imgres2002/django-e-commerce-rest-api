@@ -1,0 +1,3 @@
+koszyk, konfigurator sprzętu
+lista produktów, filtrowanie, wyszukiwanie, opinia, outlet, zarządzanie produktami, voucher prezentowy
+
