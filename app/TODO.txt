@@ -1,3 +1,4 @@
-koszyk, konfigurator sprzętu
-lista produktów, filtrowanie, wyszukiwanie, opinia, outlet, zarządzanie produktami, voucher prezentowy
-
+koszyk
+lista produktów, filtrowanie, wyszukiwanie, opinia,  zarządzanie produktami, voucher prezentowy
+outlet - kategoria outlet lub sprawdzać czy nowa cena jest mniejsz niż np 10%
+konfigurator sprzętu - id sprzetu * * i wszystkie kompatybilne z nim produkty
