@@ -12,9 +12,11 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name="product_category", on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=250)
-    price = models.DecimalField(decimal_places=2, max_digits=10, null=True, blank=True)
+    price = models.DecimalField(decimal_places=2, max_digits=10)
+    list_price = models.DecimalField(decimal_places=2, max_digits=10)
     description = models.TextField(null=True, blank=True)
     quantity = models.IntegerField(default=1)
+    date_added = models.DateField(auto_now=True)
 
     def __str__(self):
         return str(self.name)
