@@ -13,6 +13,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True)
+    date_added = serializers.DateField(read_only=True, format='%d %B %Y')
     class Meta:
         model = Product
         fields = (
@@ -21,6 +23,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'price',
             'description',
             'quantity',
+            'date_added'
         )
 
 
