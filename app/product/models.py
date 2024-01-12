@@ -22,34 +22,12 @@ class Product(models.Model):
         return str(self.name)
 
 
-class Motherboard(models.Model):
-    category = models.OneToOneField(Category, related_name="motherboard_category", on_delete=models.CASCADE)
-    chipset = models.CharField(max_length=100)
-    socket = models.CharField(max_length=100)
-
-
-class Case(models.Model):
-    category = models.OneToOneField(Category, related_name="case_category", on_delete=models.CASCADE)
-    form_factor = models.CharField(max_length=100)
-
-
-class Processor(models.Model):
-    category = models.OneToOneField(Category, related_name="processor_category", on_delete=models.CASCADE)
-    cores = models.IntegerField()
-    clock_speed = models.FloatField()
-
-
-class Memory(models.Model):
-    category = models.OneToOneField(Category, related_name="memory_category", on_delete=models.CASCADE)
-    capacity = models.IntegerField()
-    type = models.CharField(max_length=100)
-
-
 class Opinion(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     author = models.CharField(max_length=20)
     title = models.CharField(max_length=250)
     body = models.TextField()
+
 
     class RaitingEnum(models.IntegerChoices):
         ZERO = 0,
