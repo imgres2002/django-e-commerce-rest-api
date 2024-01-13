@@ -58,7 +58,7 @@ class Opinion(models.Model):
 
 
 class Voucher(models.Model):
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=10, unique=True, primary_key=True, editable=False, null=False)
     price = models.DecimalField(decimal_places=2, max_digits=10)
 
     def __str__(self):
