@@ -19,8 +19,20 @@ class Product(models.Model):
     date_added = models.DateField(auto_now=True)
     matching_products = models.ManyToManyField('self', blank=True,symmetrical=True)
 
+    def save(self, *args, **kwargs):
+        if self.price < self.list_price * 0.9:
+            Outlet.objects.create_or_update(product=self)
+        else:
+            if Outlet.objects.filter(product=self).exist():
+                Outlet.objects.filter(product=self).delete()
+
+
     def __str__(self):
         return str(self.name)
+
+
+class Outlet(models.Model):
+    product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE)
 
 
 class Opinion(models.Model):
@@ -51,4 +63,3 @@ class Voucher(models.Model):
 
     def __str__(self):
         return str(self.code)
-
