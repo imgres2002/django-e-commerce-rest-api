@@ -11,12 +11,13 @@ class Category(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name="product_category", on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=250)
-    price = models.DecimalField(decimal_places=2, max_digits=10)
-    list_price = models.DecimalField(decimal_places=2, max_digits=10)
-    description = models.TextField(null=True, blank=True)
-    quantity = models.IntegerField(default=1)
+    name = models.CharField(max_length=250, null=True)
+    price = models.DecimalField(decimal_places=2, max_digits=10,null=True)
+    list_price = models.DecimalField(decimal_places=2, max_digits=10, null=True)
+    description = models.TextField(null=True)
+    quantity = models.IntegerField(default=1, null=True)
     date_added = models.DateField(auto_now=True)
+    matching_products = models.ManyToManyField('self', blank=True,symmetrical=True)
 
     def __str__(self):
         return str(self.name)
@@ -45,8 +46,9 @@ class Opinion(models.Model):
 
 
 class Voucher(models.Model):
-    code = models.CharField(max_length=10, unique=True)
+    code = models.CharField(max_length=10)
     price = models.DecimalField(decimal_places=2, max_digits=10)
 
     def __str__(self):
         return str(self.code)
+

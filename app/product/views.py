@@ -1,9 +1,9 @@
-from rest_framework import viewsets
+from rest_framework import generics, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser
 
 from product.models import Category, Product, Opinion, Voucher
-from product.serializers import CategorySerializer, ProductSerializer, OpinionSerializer, VoucherSerializer
+from product.serializers import CategorySerializer, ProductSerializer, OpinionSerializer, VoucherSerializer, MatchingProductsSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -36,3 +36,7 @@ class VoucherViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAdminUser, )
     queryset = Voucher.objects.all()
+
+class MatchingProductsListView(generics.ListAPIView):
+    serializer_class = MatchingProductsSerializer
+    queryset = Product.objects.all()
