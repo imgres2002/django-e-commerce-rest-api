@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from product.models import Category, Product, Opinion, Voucher
+from product.models import Category, Product, Opinion
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,14 +55,6 @@ class OpinionSerializer(serializers.ModelSerializer):
             'date_added'
         ]
 
-
-class VoucherSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Voucher
-        fields = [
-            'code',
-            'price'
-        ]
 
 class MatchingProductsSerializer(serializers.ModelSerializer):
     class Meta:
