@@ -28,6 +28,18 @@ class ProductSerializer(serializers.ModelSerializer):
                   ]
 
 
+class ProductListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = [
+            'name',
+            'description',
+            'price',
+            'list_price',
+            'quantity'
+        ]
+
+
 class OpinionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Opinion
