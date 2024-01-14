@@ -24,9 +24,9 @@ class Product(models.Model):
         if self.price < self.list_price * Decimal.from_float(0.9):
             Outlet.objects.update_or_create(product=self)
         else:
-            object = Outlet.objects.filter(product=self)
-            if object.count() > 0:
-                Outlet.objects.filter(product=self).delete()
+            outlet = Outlet.objects.filter(product=self)
+            if outlet.count() > 0:
+                Outlet.delete()
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -57,11 +57,3 @@ class Opinion(models.Model):
 
     def __str__(self):
         return '%s - %s - %s' % (self.author, self.title, self.body)
-
-
-class Voucher(models.Model):
-    code = models.CharField(max_length=10, unique=True, primary_key=True, editable=False, null=False)
-    price = models.DecimalField(decimal_places=2, max_digits=10)
-
-    def __str__(self):
-        return str(self.code)
