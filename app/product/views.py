@@ -3,7 +3,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser
 
 from product.models import Category, Product, Opinion, Voucher
-from product.serializers import CategorySerializer, ProductSerializer, OpinionSerializer, VoucherSerializer, MatchingProductsSerializer
+from product.serializers import CategorySerializer, ProductSerializer, OpinionSerializer, VoucherSerializer, MatchingProductsSerializer, ProductListSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -22,6 +22,11 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
 
 
+class ProductListView(generics.ListAPIView):
+    serializer_class = ProductListSerializer
+    queryset = Product.objects.all()
+
+
 class OpinionViewSet(viewsets.ModelViewSet):
     """CRUD for opinion. Only for admin user"""
     serializer_class = OpinionSerializer
@@ -36,6 +41,7 @@ class VoucherViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAdminUser, )
     queryset = Voucher.objects.all()
+
 
 class MatchingProductsViewSet(viewsets.ModelViewSet):
     serializer_class = MatchingProductsSerializer
