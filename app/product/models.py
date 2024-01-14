@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import User
+from decimal import Decimal
 
 
 class Category(models.Model):
@@ -10,7 +11,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, related_name="product_category", on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=10,null=True)
     list_price = models.DecimalField(decimal_places=2, max_digits=10, null=True)
@@ -20,12 +21,13 @@ class Product(models.Model):
     matching_products = models.ManyToManyField('self', blank=True,symmetrical=True)
 
     def save(self, *args, **kwargs):
-        if self.price < self.list_price * 0.9:
-            Outlet.objects.create_or_update(product=self)
+        if self.price < self.list_price * Decimal.from_float(0.9):
+            Outlet.objects.update_or_create(product=self)
         else:
-            if Outlet.objects.filter(product=self).exist():
+            object = Outlet.objects.filter(product=self)
+            if object.count() > 0:
                 Outlet.objects.filter(product=self).delete()
-
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return str(self.name)
