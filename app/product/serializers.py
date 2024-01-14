@@ -13,25 +13,28 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     date_added = serializers.DateField(read_only=True, format='%d %B %Y')
-
+    category_id = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(), source='category',
+                                                     write_only=True)
     class Meta:
         model = Product
-        fields = ['id',
-                  'category',
-                  'name',
-                  'price',
-                  'list_price',
-                  'description',
-                  'quantity',
-                  'date_added',
-                  'matching_products'
-                  ]
+        fields = [
+            'category',
+            'category_id',
+            'name',
+            'price',
+            'list_price',
+            'description',
+            'quantity',
+            'date_added',
+            'matching_products'
+          ]
 
 
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
+            'category',
             'name',
             'description',
             'price',
