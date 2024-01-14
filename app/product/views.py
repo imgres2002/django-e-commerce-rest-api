@@ -37,6 +37,6 @@ class VoucherViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminUser, )
     queryset = Voucher.objects.all()
 
-class MatchingProductsListView(generics.ListAPIView):
+class MatchingProductsViewSet(viewsets.ModelViewSet):
     serializer_class = MatchingProductsSerializer
     queryset = Product.objects.all()
