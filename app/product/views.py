@@ -6,7 +6,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.filters import SearchFilter, OrderingFilter
 
 from product.models import Category, Product, Opinion
-from product.serializers import CategorySerializer, ProductSerializer, OpinionSerializer, MatchingProductsSerializer, ProductListSerializer
+from product.serializers import CategorySerializer, ProductSerializer, OpinionSerializer, MatchingProductsListSerializer, ProductListSerializer
 from product.filters import ProductFilter
 
 
@@ -50,6 +50,7 @@ class OpinionViewSet(viewsets.ModelViewSet):
     queryset = Opinion.objects.all()
 
 
-class MatchingProductsViewSet(viewsets.ModelViewSet):
-    serializer_class = MatchingProductsSerializer
+class MatchingProductsListView(generics.ListAPIView):
+    """View for list of matching products to product"""
+    serializer_class = MatchingProductsListSerializer
     queryset = Product.objects.all()
