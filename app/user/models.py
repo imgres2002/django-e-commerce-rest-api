@@ -16,6 +16,8 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
 
+
+
         return user
 
     def create_superuser(self, email, password):
@@ -39,16 +41,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-
-
-# class Complaint(models.Model):
-#     author = models.ForeignKey(
-#         User,
-#         on_delete=models.CASCADE,
-#     )
-#     product = models.ForeignKey(
-#         Product,
-#         on_delete=models.CASCADE,
-#         null=False
-#     )
-#     description = models.TextField(blank=False, null=False)
