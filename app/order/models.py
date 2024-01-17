@@ -20,8 +20,9 @@ class Order(models.Model):
     products = models.ManyToManyField(Product, through='OrderItem', blank=True)
 
     def apply_voucher_discount(self):
-        voucher = Voucher.objects.filter(code=self.code)
-        if voucher.count() > 0:
+        voucher_query = Voucher.objects.filter(code=self.code)
+        if voucher_query.count() > 0:
+            voucher = Voucher.objects.filter(code=self.code).first()
             if self.total - voucher.price > 0:
                 self.total = self.total - voucher.price
             else:
@@ -30,16 +31,16 @@ class Order(models.Model):
                 voucher.delete()
 
     def calculate_order_total(self):
-        order_item = OrderItem.objects.filter(order=self.id)
-        if order_item.count() > 0:
-            for order_item in self.products.all():
+        order_item_query = OrderItem.objects.filter(order=self.id)
+        if order_item_query.count() > 0:
+            for order_item in order_item_query:
                 self.total += order_item.quantity * order_item.product.price
 
     def quantity_decrease(self):
         if self.is_paid:
-            order_item = OrderItem.objects.filter(order=self.id)
-            if order_item.count() > 0:
-                for order_item in self.products.all():
+            order_item_query = OrderItem.objects.filter(order=self.id)
+            if order_item_query.count() > 0:
+                for order_item in order_item_query:
                     if order_item.product.quantity >= order_item.quantity:
                         order_item.product.quantity -= order_item.quantity
 

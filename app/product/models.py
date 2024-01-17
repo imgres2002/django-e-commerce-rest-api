@@ -23,9 +23,9 @@ class Product(models.Model):
         if self.price < self.list_price * Decimal.from_float(0.9):
             Outlet.objects.update_or_create(product=self)
         else:
-            outlet = Outlet.objects.filter(product=self)
-            if outlet.count() > 0:
-                Outlet.delete()
+            outlet_query = Outlet.objects.filter(product=self)
+            if outlet_query.count() > 0:
+                Outlet.objects.filter(product=self).first().delete()
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

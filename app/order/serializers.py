@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
+from product.serializers import ProductSerializer
 from order.models import Order, OrderItem, Voucher
+from product import models
 
 
 class VoucherSerializer(serializers.ModelSerializer):
@@ -13,11 +15,18 @@ class VoucherSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+    product_id = serializers.PrimaryKeyRelatedField(queryset=models.Product.objects.all(), source='product',
+                                                    write_only=True)
+    order_id = serializers.PrimaryKeyRelatedField(queryset=Order.objects.all(), source='order',
+                                                    write_only=True)
     class Meta:
         model = OrderItem
         fields = (
-            'order',
             'product',
+            'order',
+            'order_id',
+            'product_id',
             'quantity',
         )
 
