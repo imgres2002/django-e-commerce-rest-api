@@ -4,8 +4,15 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser
 from order.models import Order, OrderItem, Voucher
-from order.serializers import OrderSerializer, UserOrderSerializer, OrderItemSerializer
+from order.serializers import OrderSerializer, UserOrderSerializer, OrderItemSerializer, VoucherSerializer
 
+
+class VoucherViewSet(viewsets.ModelViewSet):
+    """CRUD for voucher. Only for admin user"""
+    serializer_class = VoucherSerializer
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAdminUser, )
+    queryset = Voucher.objects.all()
 
 class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
