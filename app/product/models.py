@@ -1,5 +1,4 @@
 from django.db import models
-from user.models import User
 from decimal import Decimal
 
 
@@ -33,7 +32,7 @@ class Product(models.Model):
         self.update_outlet()
 
     def __str__(self):
-        return str(self.name)
+        return self.name
 
 
 class Outlet(models.Model):
