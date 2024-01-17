@@ -15,6 +15,20 @@ class VoucherViewSet(viewsets.ModelViewSet):
     queryset = Voucher.objects.all()
 
 class OrderViewSet(viewsets.ModelViewSet):
+    """CRUD for order. Only for admin user"""
+    serializer_class = OrderSerializer
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAdminUser, )
+    queryset = Order.objects.all()
+
+class OrderItemViewSet(viewsets.ModelViewSet):
+    """CRUD for order_item. Only for admin user"""
+    serializer_class = OrderItemSerializer
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAdminUser, )
+    queryset = OrderItem.objects.all()
+
+class UserOrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     authentication_classes = (TokenAuthentication,)
     queryset = Order.objects.all()
