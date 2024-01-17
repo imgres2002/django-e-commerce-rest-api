@@ -13,3 +13,8 @@ urlpatterns = [
     path('orders/<int:pk>/delete/', views.UpdateOrderViewSet.as_view({'delete': 'destroy'}), name='order-delete'),
     path('orders/<int:pk>/pay/', views.MarkOrderAsPaidView.as_view(), name='order-pay'),
 ]
+router = SimpleRouter()
+
+router.register('vouchers', views.VoucherViewSet, basename='vouchers')
+
+urlpatterns += router.urls
