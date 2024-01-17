@@ -7,7 +7,7 @@ app_name = 'products'
 
 urlpatterns = [
     path('product-list/', views.ProductListView.as_view(), name='product-list'),
-    path('matching-product-list/<int:pk>/', views.MatchingProductsListView.as_view(), name='matching-product-list'),
+    path('matching-product-list/', views.MatchingProductsListView.as_view(), name='matching-product-list'),
 ]
 
 router = SimpleRouter()
